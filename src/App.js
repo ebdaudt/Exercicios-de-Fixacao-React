@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+// src/App.js
+import React, { useContext, useEffect } from 'react';
+import { ThemeContext, ThemeProvider } from './ThemeContext';
+import './theme.css';
+
+const ThemeToggle = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    document.body.className = theme;
+  }, [theme]);
+
+  return (
+    <button onClick={toggleTheme}>
+      Alternar para o tema {theme === 'light' ? 'escuro' : 'claro'}
+    </button>
+  );
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider>
+      <div className="App">
+        <h1>Aplicação de Alternância de Tema</h1>
+        <ThemeToggle />
+      </div>
+    </ThemeProvider>
   );
 }
 
